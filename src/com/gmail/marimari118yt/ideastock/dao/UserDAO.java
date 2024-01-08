@@ -17,8 +17,8 @@ import com.gmail.marimari118yt.ideastock.dto.UserUpdateDTO;
 import com.gmail.marimari118yt.ideastock.dto.ValidationException;
 
 public class UserDAO {
-	
-	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 h:m");
+
+	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:m");
 	
 	private static final String SQL_CREATE = new StringJoiner("\n")
 			.add("INSERT INTO users(")
@@ -179,7 +179,7 @@ public class UserDAO {
 			user.setName(rs.getString("name"));
 			user.setLoginId(rs.getString("login_id"));
 			user.setPassword(rs.getBytes("password"));
-			user.setCreatedAt(formatter.format(rs.getTime("created_at")));
+			user.setCreatedAt(formatter.format(rs.getTimestamp("created_at")));
 		}
 		
 		return user;

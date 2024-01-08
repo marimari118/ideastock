@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+@import "/css/default.css";
+
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+body>* {
+	width: 100%;
+}
+
+header, main, footer {
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+.header-wrapper {
+	background-color: #7f7f7f;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+
+.header-left>* a {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding: 0 1rem;
+	text-decoration: none;
+	letter-spacing: .1rem;
+	color: #ffffff;
+}
+
+.header-right {
+	display: flex;
+}
+
+.header-right>* a {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding: 0 1rem;
+	color: #ffffff;
+	letter-spacing: .1rem;
+	background-color: #ffffff00;
+	transition: all .3s;
+	text-decoration: none;
+}
+
+.header-right>* a:hover {
+	background-color: #ffffff7f;
+	color: #000000;
+	text-decoration: underline;
+}
+
+main {
+	padding: 2rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+}
+
+.footer-wrapper {
+	background-color: #7f7f7f;
+}
+
+footer {
+	display: flex;
+	padding: 2rem 0;
+	justify-content: center;
+	color: #ffffff;
+}

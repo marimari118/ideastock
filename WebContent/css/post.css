@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.posts-container {
+	width: 60%;
+}
+
+.posts-container a {
+	color: #1a0dab;
+	text-decoration: none;
+}
+
+.posts-container a:visited {
+	color: #681da8;
+}
+
+.posts-container a:hover {
+	text-decoration: underline;
+}
+
+.hits-post {
+	white-space: nowrap;
+	display: flex;
+	justify-content: start;
+	margin-bottom: .5rem;
+}
+
+.hits-post-msg {
+	overflow: clip;
+	text-overflow: ellipsis;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	padding: .5rem 1rem;
+	border: solid #3f3f3f;
+	border-width: 0 0 .1rem 0;
+}
+
+.post:first-child {
+	border-width: .1rem 0;
+}
+
+.post-author {
+	color: #7f7f7f;
+}

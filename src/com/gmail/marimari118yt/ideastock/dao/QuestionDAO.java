@@ -1,6 +1,5 @@
 package com.gmail.marimari118yt.ideastock.dao;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,8 +17,8 @@ import com.gmail.marimari118yt.ideastock.dto.QuestionUpdateDTO;
 import com.gmail.marimari118yt.ideastock.dto.ValidationException;
 
 public class QuestionDAO {
-	
-	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 h:m");
+
+	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
 	
 	private static final String SQL_CREATE = new StringJoiner("\n")
 			.add("INSERT INTO questions(")
@@ -31,6 +30,9 @@ public class QuestionDAO {
 	private static final String SQL_FIND = new StringJoiner("\n")
 			.add("SELECT * FROM questions")
 			.add("WHERE id = ?").toString();
+	
+	private static final String SQL_GET_ALL = new StringJoiner("\n")
+			.add("SELECT * FROM questions_info").toString();
 	
 	private static final String SQL_SEARCH = new StringJoiner("\n")
 			.add("SELECT * FROM questions_info")
@@ -48,7 +50,7 @@ public class QuestionDAO {
 			.add("is_deleted = ?")
 			.add("WHERE id = ?").toString();
 
-	public static boolean create(QuestionPostDTO questionData) throws ValidationException, NoSuchAlgorithmException {
+	public static boolean create(QuestionPostDTO questionData) throws ValidationException {
 		QuestionBean question = questionData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -92,13 +94,11 @@ public class QuestionDAO {
 		return null;
 	}
 	
-	public static List<QuestionBean> search(String keyword) throws ValidationException, NoSuchAlgorithmException {
+	public static List<QuestionBean> getAll() throws ValidationException {
 		try (
-				Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
-				PreparedStatement stmt = con.prepareStatement(SQL_SEARCH);
+			Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
+			PreparedStatement stmt = con.prepareStatement(SQL_GET_ALL);
 		) {
-			stmt.setString(1, keyword);
-			
 			try (ResultSet rs = stmt.executeQuery()) {
 				return getQuestionsByResultSet(rs);
 			}
@@ -110,7 +110,30 @@ public class QuestionDAO {
 		return null;
 	}
 	
-	public static boolean update(QuestionUpdateDTO questionData) throws ValidationException, NoSuchAlgorithmException {
+	public static List<QuestionBean> search(String keyword) throws ValidationException {
+		if (keyword != null) {
+			try (
+					Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
+					PreparedStatement stmt = con.prepareStatement(SQL_SEARCH);
+			) {
+				stmt.setString(1, keyword);
+				
+				try (ResultSet rs = stmt.executeQuery()) {
+					return getQuestionsByResultSet(rs);
+				}
+				
+			} catch (SQLException e) {
+				System.err.println(e.getMessage());
+			}
+		
+		} else {
+			return getAll();
+		}
+		
+		return null;
+	}
+	
+	public static boolean update(QuestionUpdateDTO questionData) throws ValidationException {
 		QuestionBean question = questionData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -137,7 +160,7 @@ public class QuestionDAO {
 		return false;
 	}
 	
-	public static boolean delete(QuestionUpdateDTO questionData) throws ValidationException, NoSuchAlgorithmException {
+	public static boolean delete(QuestionUpdateDTO questionData) throws ValidationException {
 		QuestionBean question = questionData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -172,7 +195,7 @@ public class QuestionDAO {
 					.authorName(rs.getString("author_name"))
 					.title(rs.getString("title"))
 					.content(rs.getString("content"))
-					.createdAt(formatter.format(rs.getTime("created_at")))
+					.createdAt(formatter.format(rs.getTimestamp("created_at")))
 					.build());
 		}
 		
@@ -189,7 +212,7 @@ public class QuestionDAO {
 					.authorName(rs.getString("author_name"))
 					.title(rs.getString("title"))
 					.content(rs.getString("content"))
-					.createdAt(formatter.format(rs.getTime("created_at")))
+					.createdAt(formatter.format(rs.getTimestamp("created_at")))
 					.build();
 		}
 		

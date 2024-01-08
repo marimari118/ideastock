@@ -1,6 +1,5 @@
 package com.gmail.marimari118yt.ideastock.dao;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,8 +17,8 @@ import com.gmail.marimari118yt.ideastock.dto.AnswerUpdateDTO;
 import com.gmail.marimari118yt.ideastock.dto.ValidationException;
 
 public class AnswerDAO {
-	
-	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 h:m");
+
+	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
 	
 	private static final String SQL_CREATE = new StringJoiner("\n")
 			.add("INSERT INTO answers(")
@@ -48,7 +47,7 @@ public class AnswerDAO {
 			.add("is_deleted = ?")
 			.add("WHERE id = ?").toString();
 
-	public static boolean create(AnswerPostDTO answerData) throws ValidationException, NoSuchAlgorithmException {
+	public static boolean create(AnswerPostDTO answerData) throws ValidationException {
 		AnswerBean answer = answerData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -93,7 +92,11 @@ public class AnswerDAO {
 		return null;
 	}
 	
-	public static List<AnswerBean> search(String keyword) throws ValidationException, NoSuchAlgorithmException {
+	public static List<AnswerBean> search(String keyword) throws ValidationException {
+		if (keyword == null) {
+			keyword = "";
+		}
+		
 		try (
 				Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
 				PreparedStatement stmt = con.prepareStatement(SQL_SEARCH);
@@ -111,7 +114,7 @@ public class AnswerDAO {
 		return null;
 	}
 	
-	public static boolean update(AnswerUpdateDTO answerData) throws ValidationException, NoSuchAlgorithmException {
+	public static boolean update(AnswerUpdateDTO answerData) throws ValidationException {
 		AnswerBean answer = answerData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -138,7 +141,7 @@ public class AnswerDAO {
 		return false;
 	}
 	
-	public static boolean delete(AnswerUpdateDTO answerData) throws ValidationException, NoSuchAlgorithmException {
+	public static boolean delete(AnswerUpdateDTO answerData) throws ValidationException {
 		AnswerBean answer = answerData.build();
 		
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
@@ -174,7 +177,7 @@ public class AnswerDAO {
 					.authorName(rs.getString("author_name"))
 					.title(rs.getString("title"))
 					.content(rs.getString("content"))
-					.createdAt(formatter.format(rs.getTime("created_at")))
+					.createdAt(formatter.format(rs.getTimestamp("created_at")))
 					.build());
 		}
 		
@@ -192,7 +195,7 @@ public class AnswerDAO {
 					.authorName(rs.getString("author_name"))
 					.title(rs.getString("title"))
 					.content(rs.getString("content"))
-					.createdAt(formatter.format(rs.getTime("created_at")))
+					.createdAt(formatter.format(rs.getTimestamp("created_at")))
 					.build();
 		}
 		
