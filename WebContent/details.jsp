@@ -68,7 +68,8 @@
 								<div class="post-actions">
 									<c:if test="${answer.author.id == user.id}">
 										<form action="/delete/answer" method="POST">
-											<input type="hidden" name="id" value="${answer.id}">
+											<input type="hidden" name="questionId" value="${question.id}">
+											<input type="hidden" name="answerId" value="${answer.id}">
 											<input class="button-delete" type="submit" value="削除">
 										</form>
 									</c:if>

@@ -16,12 +16,12 @@
 	
 	<div class="main-wrapper flex-fill">
 		<main class="flex-fill">
-			<div class="form-ask-container">
+			<div class="form-post-container">
 				<form action="/post/question" method="POST">
 					<p class="form-title">質問を投稿する</p>
 					
 					<div class="form-content">
-						<div class="form-ask-title">
+						<div class="form-post-title">
 							<p>タイトル</p>
 							<input type="text" name="title" value="${f:escapeXml(param.title)}">
 							<c:if test="${!empty requestParam.errors.title}">
@@ -33,7 +33,7 @@
 							</c:if>
 						</div>
 						
-						<div class="form-ask-content">
+						<div class="form-post-content">
 							<p>質問内容</p>
 							<textarea name="content">${f:escapeXml(param.content)}</textarea>
 							<c:if test="${!empty errors.content}">

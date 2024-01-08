@@ -163,14 +163,12 @@ public class AnswerDAO {
 		return false;
 	}
 	
-	public static boolean delete(AnswerUpdateDTO answerData) throws ValidationException {
-		AnswerBean answer = answerData.build();
-		
+	public static boolean delete(int id) throws ValidationException {
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
 			con.setAutoCommit(false);
 			try (PreparedStatement stmt = con.prepareStatement(SQL_DELETE)) {
 				stmt.setInt(1, 1);
-				stmt.setInt(2, answer.getId());
+				stmt.setInt(2, id);
 				
 				stmt.executeUpdate();
 				con.commit();
