@@ -16,15 +16,28 @@ main {
 	justify-content: center;
 }
 
-.form-login-container {
-	width: 20rem;
+.form-ask-container {
+	width: 60%;
 }
 
-.form-login-container form {
+.form-ask-container form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .5rem;
+	margin-bottom: 1rem;
 	background-color: #ffffff;
 	padding: 1rem;
 	border: .1rem solid #bfbfbf;
 	border-radius: .3rem;
+}
+
+.form-ask-container form>* {
+	width: 100%;
+}
+
+.form-ask-container form>*>* {
+	width: 90%;
 }
 
 .form-title {
@@ -41,30 +54,28 @@ main {
 	margin-bottom: 1rem;
 }
 
-.form-content>* {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+input {
+	font-size: 1rem;
+	border: .1rem solid #7f7f7f;
+	border-radius: .3rem;
+	font-weight: 200;
+	padding: .5rem;
 	width: 100%;
 }
 
-input {
+textarea {
 	font-size: 1rem;
-	text-align: center;
-	background-color: #ecf0f1;
-	border: .1rem solid transparent;
+	border: .1rem solid #7f7f7f;
 	border-radius: .3rem;
 	font-weight: 200;
-	padding: .5rem 0;
-	width: 90%;
-	transition: border .3s;
-}
-
-input:focus {
-	border: .1rem solid #3498db;
+	padding: .5rem;
+	width: 100%;
+	min-height: 8rem;
+	resize: vertical;
 }
 
 input[type="submit"] {
+	border: none;
 	background: #3498db;
 	color: #ffffff;
 	transition: .3s;
@@ -74,12 +85,4 @@ input[type="submit"] {
 input[type="submit"]:hover,
 input[type="submit"]:focus {
 	background-color: #2980b9;
-}
-
-.form-login-signup {
-	display: block;
-	text-align: center;
-	font-size: .8rem;
-	margin-top: .5rem;
-	color: #3f3f3f;
 }

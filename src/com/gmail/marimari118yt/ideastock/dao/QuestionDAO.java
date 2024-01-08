@@ -111,7 +111,7 @@ public class QuestionDAO {
 	}
 	
 	public static List<QuestionBean> search(String keyword) throws ValidationException {
-		if (keyword != null) {
+		if (keyword != null && !keyword.equals("")) {
 			try (
 					Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
 					PreparedStatement stmt = con.prepareStatement(SQL_SEARCH);

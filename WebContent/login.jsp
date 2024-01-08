@@ -16,14 +16,13 @@
 
 	<div class="main-wrapper flex-fill">
 		<main class="flex-fill">
-
 			<div class="form-login-container">
 				<form action="/auth" method="POST">
-					<div class="form-login-title">
+					<div class="form-title">
 						<h2>Login</h2>
 					</div>
 					
-					<div class="form-login-content">
+					<div class="form-content">
 						<div>
 							<input type="text" name="loginId" placeholder="Login ID" value="${param.loginId}">
 							<c:if test="${!empty errors.loginId}">
