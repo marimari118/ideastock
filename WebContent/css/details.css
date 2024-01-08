@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+.posts-container {
+	width: 60%;
+}
+
+.count-post {
+	white-space: nowrap;
+	display: flex;
+	justify-content: start;
+	margin: 2rem 0 .5rem 0;
+}
+
+.count-post-msg {
+	overflow: clip;
+	text-overflow: ellipsis;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	padding: .5rem 1rem;
+	border: 0 solid #3f3f3f;
+}
+
+.group-title {
+	margin-bottom: 1rem;
+	text-align: center;
+	color: #7f7f7f;
+}
+
+.answers .post {
+	border-width: .1rem 0 0 0;
+}
+
+.post-author {
+	color: #7f7f7f;
+}
+
+.post-footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.post-actions {
+	display: flex;
+	gap: .5rem;
+}
+
+.post-actions input[type="submit"] {
+	padding: .5rem;
+	border: none;
+	border-radius: 2rem;
+	background: #3498db;
+	color: #ffffff;
+	transition: .3s;
+	cursor: pointer;
+}
+
+.post-actions input.button-delete[type="submit"] {
+	border-radius: 2rem;
+	background: #d70a53;
+}
+
+.post-actions input[type="submit"]:hover,
+.post-actions input[type="submit"]:focus {
+	background-color: #2980b9;
+}
+
+.post-actions input.button-delete[type="submit"]:hover,
+.post-actions input.button-delete[type="submit"]:focus {
+	background-color: #bf094a;
+}

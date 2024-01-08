@@ -24,15 +24,37 @@
 						<div class="form-ask-title">
 							<p>タイトル</p>
 							<input type="text" name="title" value="${f:escapeXml(param.title)}">
+							<c:if test="${!empty requestParam.errors.title}">
+								<ul class="form-error">
+									<c:forEach var="error" items="${errors.title}">
+										<li>${error}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
 						
 						<div class="form-ask-content">
 							<p>質問内容</p>
 							<textarea name="content">${f:escapeXml(param.content)}</textarea>
+							<c:if test="${!empty errors.content}">
+								<ul class="form-error">
+									<c:forEach var="error" items="${errors.content}">
+										<li>${error}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
+						
+						<c:if test="${!empty errors.other}">
+							<ul class="form-error">
+								<c:forEach var="error" items="${errors.other}">
+									<li>${error}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
 	
 						<div>
-							<input type="submit" value="Login">
+							<input type="submit" value="投稿">
 						</div>
 					</div>
 				</form>

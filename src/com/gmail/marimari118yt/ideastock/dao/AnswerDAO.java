@@ -28,8 +28,12 @@ public class AnswerDAO {
 			.add(")").toString();
 	
 	private static final String SQL_FIND = new StringJoiner("\n")
-			.add("SELECT * FROM answers")
+			.add("SELECT * FROM answers_info")
 			.add("WHERE id = ?").toString();
+	
+	private static final String SQL_GET_BY_QUESTION_ID = new StringJoiner("\n")
+			.add("SELECT * FROM answers_info")
+			.add("WHERE question_id = ?").toString();
 	
 	private static final String SQL_SEARCH = new StringJoiner("\n")
 			.add("SELECT * FROM answers_info")
@@ -92,7 +96,25 @@ public class AnswerDAO {
 		return null;
 	}
 	
-	public static List<AnswerBean> search(String keyword) throws ValidationException {
+	public static List<AnswerBean> getByQuestionId(int questionId) {
+		try (
+				Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD);
+				PreparedStatement stmt = con.prepareStatement(SQL_GET_BY_QUESTION_ID);
+		) {
+			stmt.setInt(1, questionId);
+			
+			try (ResultSet rs = stmt.executeQuery()) {
+				return getAnswersByResultSet(rs);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return null;
+	}
+	
+	public static List<AnswerBean> search(String keyword) {
 		if (keyword == null) {
 			keyword = "";
 		}

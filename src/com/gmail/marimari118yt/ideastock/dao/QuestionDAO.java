@@ -28,7 +28,7 @@ public class QuestionDAO {
 			.add(")").toString();
 	
 	private static final String SQL_FIND = new StringJoiner("\n")
-			.add("SELECT * FROM questions")
+			.add("SELECT * FROM questions_info")
 			.add("WHERE id = ?").toString();
 	
 	private static final String SQL_GET_ALL = new StringJoiner("\n")
@@ -160,14 +160,12 @@ public class QuestionDAO {
 		return false;
 	}
 	
-	public static boolean delete(QuestionUpdateDTO questionData) throws ValidationException {
-		QuestionBean question = questionData.build();
-		
+	public static boolean delete(int id) {
 		try (Connection con = DriverManager.getConnection(Const.URL, Const.USER, Const.PASSWORD)) {
 			con.setAutoCommit(false);
 			try (PreparedStatement stmt = con.prepareStatement(SQL_DELETE)) {
 				stmt.setInt(1, 1);
-				stmt.setInt(2, question.getId());
+				stmt.setInt(2, id);
 				
 				stmt.executeUpdate();
 				con.commit();
